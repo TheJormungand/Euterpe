@@ -1,0 +1,2 @@
+# Euterpe
+Euterpe music bot
