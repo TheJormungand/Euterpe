@@ -1,2 +1,1 @@
-# Euterpe
-Euterpe music bot
+Initial version, will write better ReadME later.
