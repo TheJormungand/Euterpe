@@ -8,14 +8,35 @@ module.exports = {
         .addStringOption(option =>
             option.setName('url')
                 .setDescription('URL of song or playlist')
-                .setRequired(true)),
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('playlist_name')
+                .setDescription('Name of the playlist, default is YouTube playlist name')
+                .setRequired(false)),
     async execute(interaction) {
         const query = interaction.options.getString('url', true);
+        const playlistName = interaction.options.getString('playlist_name', false);
         try {
             await interaction.deferReply();
             if (query.includes('list=')) {
                 console.log('Playlist detected!');
-                const ytdlprocess = spawn('yt-dlp', ['--config-location', '~/Euterpe/yt-dlp.conf', query]);
+                var ytdlprocess;
+                if (playlistName) {
+                    console.log(`Custom Playlist Name: ${playlistName}`);
+                    ytdlprocess = spawn('yt-dlp', ['--config-location', '~/Euterpe/yt-dlp.conf',
+                        '--exec', `echo \"%(id)s,%(title)s,%(original_url)s,${playlistName}\">>\"playlists/%(playlist_id)s\"`,
+                        '--exec', `echo \"%(playlist_id)s,${playlistName}\">>\"playlists/MasterRecord\"`,
+                        '--exec', `playlist:sed -i -f sedconf.sed playlists/MasterRecord & del playlists\\sed*`,
+                        '--exec', 'sed -i -f sedconf.sed playlists/%(playlist_id)s',                        
+                        query]);
+                } else {
+                    ytdlprocess = spawn('yt-dlp', ['--config-location', '~/Euterpe/yt-dlp.conf',
+                        '--exec', `echo \"%(id)s,%(title)s,%(original_url)s,%(playlist_title)s\">>\"playlists/%(playlist_id)s\"`,
+                        '--exec', `echo \"%(playlist_id)s,%(playlist_title)s\">>\"playlists/MasterRecord\"`,
+                        '--exec', `playlist:sed -i -f sedconf.sed playlists/MasterRecord & del playlists\\sed*`,
+                        '--exec', 'sed -i -f sedconf.sed playlists/%(playlist_id)s',                        
+                        query]);
+                }
                 ytdlprocess.stderr.setEncoding('utf8');
                 ytdlprocess.stderr.on('data', function(data) {
                     data=data.toString();
