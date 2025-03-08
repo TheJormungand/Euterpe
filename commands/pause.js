@@ -2,7 +2,7 @@ const {GuildMember, SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-pause')
+		.setName('pause')
 		.setDescription('Pause current song!'),
   async execute(interaction, queue) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {

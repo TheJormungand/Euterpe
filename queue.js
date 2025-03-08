@@ -7,6 +7,7 @@ class Queue {
         this.currentTrackIndex = 0;
         this.player = player;
         this.interaction;
+        this.channel
         this.loopMode = 0;
         // 0 = no loop
         // 1 = loop queue
@@ -166,6 +167,7 @@ class Queue {
                 this.playing = true;
                 console.log("[QUEUE][play] Playing track: "+this.queue[this.currentTrackIndex].metadata.title);
                 this.interaction = interaction;
+                this.channel = interaction.channel;
                 return this.queue[this.currentTrackIndex];
             } 
         }

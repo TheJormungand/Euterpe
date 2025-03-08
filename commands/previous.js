@@ -2,7 +2,7 @@ const {GuildMember, SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-previous')
+		.setName('previous')
 		.setDescription('Play a previous song!'),
   async execute(interaction, queue) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {

@@ -5,7 +5,7 @@ const { join } = require('node:path');
 
 module.exports = {
   data: new SlashCommandBuilder()
-      .setName('eu-play')
+      .setName('play')
       .setDescription('Play a song! Use URL or playlist name.')
       .addStringOption(option =>
         option.setName('url')

@@ -15,6 +15,7 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   if ('data' in command && 'execute' in command) {
     client.commands.set(command.data.name, command);
+    console.log(`[INFO] Command ${command.data.name} registered.`);
   } else {
     console.log(`[WARNING] The command at ${file} is missing a required "data" or "execute" property.`);
   }
@@ -44,7 +45,7 @@ client.on('interactionCreate', async interaction => {
   const command = client.commands.get(interaction.commandName.toLowerCase());
   try {
     console.log(`Received Command: ${interaction.commandName.toLowerCase()}`);
-    if (interaction.commandName.toLowerCase() == 'eu-play'){
+    if (interaction.commandName.toLowerCase() == 'play'){
       // Connect to the voice channel
       connection = getVoiceConnection(interaction.guildId);
       if (connection === undefined) {
@@ -93,11 +94,11 @@ player.on(AudioPlayerStatus.Playing, () => {
 player.on(AudioPlayerStatus.Idle, () => {
   console.log('The audio player has stopped playing!');
   if(queue.nextTrack() !== null){
-    queue.interaction.followUp({
+    queue.channel.send({
       content: `🎶 | Now playing **${queue.currentTrack().metadata.title}**!`,
     });
   } else {
-    queue.interaction.followUp({
+    queue.channel.send({
       content: `✅ | Finished playing the queue!`,
     });
   }

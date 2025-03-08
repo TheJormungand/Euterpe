@@ -2,7 +2,7 @@ const {SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-purge')
+		.setName('purge')
 		.setDescription('Delete the last messages in all chats.')
     .addIntegerOption(option =>
       option.setName('num')

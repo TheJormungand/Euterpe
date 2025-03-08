@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-dc')
+		.setName('dc')
 		.setDescription('Disconnect Euterpe from the voice channel.'),
   async execute(interaction, queue) {
     const connection = getVoiceConnection(interaction.guildId);

@@ -2,7 +2,7 @@ const {GuildMember, SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-loop')
+		.setName('loop')
 		.setDescription('Loop the music!')
     .addStringOption(option =>
       option.setName('mode')

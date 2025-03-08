@@ -2,7 +2,7 @@ const {GuildMember, SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-np')
+		.setName('np')
 		.setDescription('Get the song that is currently playing.'),
   async execute(interaction, queue) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {

@@ -2,7 +2,7 @@ const {GuildMember, SlashCommandBuilder, MessageFlags} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-		.setName('eu-shuffle')
+		.setName('shuffle')
 		.setDescription('Shuffle the queue!'),
   async execute(interaction, queue) {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
